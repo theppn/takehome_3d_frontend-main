@@ -1,0 +1,43 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Toolbar */
+.top-toolbar {
+  height: 50px;
+  background: #333;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+/* Main Content Area */
+.main-container {
+  flex: 1;
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+
+.left-bar {
+  width: 200px;
+  background: #ddd;
+  padding: 10px;
+}
+
+.right-bar {
+  width: 200px;
+  background: #ccc;
+  padding: 10px;
+}
+
+.center-area {
+  flex: 1;
+  background: #f0f0f0;
+  padding: 10px;
+}
