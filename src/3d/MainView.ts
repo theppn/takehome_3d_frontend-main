@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import "../../styles/main_view.css";
 
@@ -35,15 +35,15 @@ export function createMainView() {
   controls.maxPolarAngle = Math.PI / 2;
 
   if (mainView) {
-    renderer.setSize(mainView.clientWidth, mainView.clientHeight);
-    renderer.setClearColor(0xffffff, 1);
-    mainView.appendChild(renderer.domElement);
-    // Handle window resizing
-    window.addEventListener("resize", () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+    const mainViewContainerObserver = new ResizeObserver(() => {
+      camera.aspect = mainView.clientWidth / mainView.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(mainView.clientWidth, mainView.clientHeight);
     });
+    renderer.setClearColor(0xffffff, 1);
+    mainView.appendChild(renderer.domElement);
+    // Handle resizing
+    mainViewContainerObserver.observe(mainView, {});
   }
 
   // Animation loop
@@ -65,8 +65,20 @@ export function createMainView() {
         return lastObject;
       }
     },
-    hasShapes: () => {
-      return scene.children.length > 1;
+    clearScene: () => {
+      scene.clear();
     },
+    blinkObjectbyId: (id: number, interval: number, timeout: number) => {
+      const obj = scene.getObjectById(id);
+      if (obj) {
+        const blinkInterval = setInterval(() => {
+          obj.visible = !obj.visible;
+        }, interval);
+        setTimeout(() => {
+          obj.visible = true;
+          clearInterval(blinkInterval);
+        }, timeout);
+      }
+    }
   };
 }

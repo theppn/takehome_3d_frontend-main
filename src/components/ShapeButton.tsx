@@ -1,5 +1,4 @@
 import React from "react";
-import { getNotificationCenter } from "../notification";
 
 type ButtonProps = {
     label: string;
@@ -8,8 +7,7 @@ type ButtonProps = {
 
 const ShapeButton: React.FC<ButtonProps> = ({ label, onClick }) => {
   const _onClick = () => {
-    onClick()
-    getNotificationCenter().notify('shapeAdded', {});
+    onClick();
   }
   return <button onClick={_onClick}>Add {label}</button>;
 };

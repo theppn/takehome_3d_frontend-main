@@ -2,7 +2,7 @@ import $ from "jquery";
 import "../styles/app.css";
 
 export function createLayout() {
-  let $toolbar = $("<div>").addClass("top-toolbar");
+  let $toolbar = $("<div>").attr("id", "top-toolbar").addClass("top-toolbar");
   let $mainContainer = $("<div>").addClass("main-container");
 
   let $leftBar = $("<div>").attr("id", "shape-panel").addClass("left-bar");

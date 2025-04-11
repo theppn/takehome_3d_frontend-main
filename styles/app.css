@@ -22,22 +22,24 @@ html, body {
   display: flex;
   width: 100%;
   overflow: hidden;
+  flex-direction: row;
 }
 
 .left-bar {
-  width: 200px;
-  background: #ddd;
+  flex: 1 1 100px;
+  background: #737373;
   padding: 10px;
 }
 
 .right-bar {
-  width: 200px;
-  background: #ccc;
+  flex: 1 1 100px;
+  background: #737373;
   padding: 10px;
 }
 
 .center-area {
-  flex: 1;
+  flex: 3 1 100px;
   background: #f0f0f0;
   padding: 10px;
+  overflow: hidden;
 }

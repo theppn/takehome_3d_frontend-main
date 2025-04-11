@@ -1,7 +1,8 @@
 import { get } from "jquery";
 import { createMainView } from "./MainView";
-import * as THREE from "three";
+import THREE from "three";
 import { getNotificationCenter } from "../notification";
+import { blinkInterval, blinkTimeout } from "../config";
 
 export type Shape = 'sphere' | 'cube' | 'cylinder';
 export interface MainViewController {
@@ -9,6 +10,8 @@ export interface MainViewController {
   removeLastShape(): void;
   reinsertPreviousShape(): void;
   clearAll(): void;
+  blinkObjectbyId(id: number): void;
+  setProjectName(name: string): void;
 }
 
 export function createMainViewController(): MainViewController {
@@ -24,7 +27,7 @@ export function createMainViewController(): MainViewController {
     new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
     new THREE.MeshBasicMaterial({ color: 0x0000ff }),
   ];
-  function randonMaterial() {
+  function randomMaterial() {
     return materials[Math.floor(Math.random() * materials.length)];
   }
   function randomPosition() {
@@ -40,16 +43,17 @@ export function createMainViewController(): MainViewController {
       let newMesh: THREE.Mesh | undefined = undefined;
       switch (shape) {
         case "sphere":
-          newMesh = new THREE.Mesh(geometries.sphere, randonMaterial());
+          newMesh = new THREE.Mesh(geometries.sphere, randomMaterial());
           break;
         case "cube":
-          newMesh = new THREE.Mesh(geometries.cube, randonMaterial());
+          newMesh = new THREE.Mesh(geometries.cube, randomMaterial());
           break;
         case "cylinder":
-          newMesh = new THREE.Mesh(geometries.cylinder, randonMaterial());
+          newMesh = new THREE.Mesh(geometries.cylinder, randomMaterial());
           break;
       }
       if (newMesh) {
+        newMesh.name = shape + ' ' + newMesh.id;
         undoStack.splice(0, undoStack.length);
         newMesh.position.copy(randomPosition());
         view.addToScene(newMesh);
@@ -71,9 +75,17 @@ export function createMainViewController(): MainViewController {
       }
     },
     clearAll() {
-      while (view.hasShapes()) {
-        this.removeLastShape();
-      }
+      view.clearScene();
+      undoStack.splice(0, undoStack.length);
+      getNotificationCenter().notify("sceneCleared");
+    },
+    blinkObjectbyId(id: number) {      
+      view.blinkObjectbyId(id, blinkInterval, blinkTimeout);
+      getNotificationCenter().notify("objectBlinked", id);
+    },
+    setProjectName(name) {
+      // project name is not saved in state for this example
+      getNotificationCenter().notify("projectName", name);
     },
   };
 }

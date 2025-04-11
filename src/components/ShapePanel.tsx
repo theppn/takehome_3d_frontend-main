@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { createRoot } from "react-dom/client";
 import ShapeButton from "./ShapeButton";
 import "../../styles/shape_panel.css";
@@ -7,6 +7,8 @@ import { type MainViewController } from "../3d/MainViewController";
 const ShapePanel: React.FC<{ controller: MainViewController }> = ({
   controller,
 }) => {
+  const renderCounter  = useRef(0);
+  renderCounter.current = renderCounter.current + 1;
   return (
     <div>
       <ShapeButton
@@ -21,6 +23,7 @@ const ShapePanel: React.FC<{ controller: MainViewController }> = ({
         label="cylinder"
         onClick={() => controller.createShape("cylinder")}
       />
+      {renderCounter.current} renders
     </div>
   );
 };

@@ -1,8 +1,16 @@
+.top-toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
 .top-toolbar .project-name {
   font-size: 1.5em;
   margin: 10px;
-  width: 200px;
+  max-width: 200px;
+  max-height: 1.4em;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .top-toolbar button {
@@ -17,4 +25,9 @@
 
 #react-toolbar-root {
   margin-left: auto;
+}
+
+#react-toolbar-root > h2 {
+  font-size: 0.75em;
+  text-overflow: ellipsis;
 }
