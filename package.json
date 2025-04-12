@@ -10,7 +10,6 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/jquery": "^3.5.32",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "@types/three": "^0.174.0",
@@ -24,7 +23,6 @@
     "webpack-dev-server": "^5.2.0"
   },
   "dependencies": {
-    "jquery": "^3.7.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "three": "^0.174.0"

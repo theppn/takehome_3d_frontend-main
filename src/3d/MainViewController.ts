@@ -1,4 +1,3 @@
-import { get } from "jquery";
 import { createMainView } from "./MainView";
 import THREE from "three";
 import { getNotificationCenter } from "../notification";

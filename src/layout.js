@@ -1,17 +1,30 @@
-import $ from "jquery";
 import "../styles/app.css";
 
 export function createLayout() {
-  let $toolbar = $("<div>").attr("id", "top-toolbar").addClass("top-toolbar");
-  let $mainContainer = $("<div>").addClass("main-container");
+  // Create elements
+  const toolbar = document.createElement("div");
+  toolbar.id = "top-toolbar";
+  toolbar.classList.add("top-toolbar");
 
-  let $leftBar = $("<div>").attr("id", "shape-panel").addClass("left-bar");
-  let $centerArea = $("<div>").attr("id", "main-view").addClass("center-area");
-  let $rightBar = $("<div>")
-    .attr("id", "shape-properties")
-    .addClass("right-bar")
-    .text("Project name + list of 3D objects");
+  const mainContainer = document.createElement("div");
+  mainContainer.classList.add("main-container");
 
-  $mainContainer.append($leftBar, $centerArea, $rightBar);
-  $("body").append($toolbar, $mainContainer);
+  const leftBar = document.createElement("div");
+  leftBar.id = "shape-panel";
+  leftBar.classList.add("left-bar");
+
+  const centerArea = document.createElement("div");
+  centerArea.id = "main-view";
+  centerArea.classList.add("center-area");
+
+  const rightBar = document.createElement("div");
+  rightBar.id = "shape-properties";
+  rightBar.classList.add("right-bar");
+  rightBar.textContent = "Project name + list of 3D objects";
+
+  // Append children
+  mainContainer.append(leftBar, centerArea, rightBar);
+
+  // Add elements to the document body
+  document.body.append(toolbar, mainContainer);
 }
