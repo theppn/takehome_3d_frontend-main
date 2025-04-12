@@ -29,12 +29,14 @@ html, body {
   flex: 0 0 100px;
   background: #737373;
   padding: 10px;
+  color: white;
 }
 
 .right-bar {
   flex: 1 0 150px;
   background: #737373;
   padding: 10px;
+  color: white;
 }
 
 .center-area {
