@@ -26,20 +26,24 @@ html, body {
 }
 
 .left-bar {
-  flex: 1 1 100px;
+  flex: 0 0 100px;
   background: #737373;
   padding: 10px;
 }
 
 .right-bar {
-  flex: 1 1 100px;
+  flex: 1 0 150px;
   background: #737373;
   padding: 10px;
 }
 
 .center-area {
-  flex: 3 1 100px;
+  flex: 10 0 200px;
   background: #f0f0f0;
   padding: 10px;
   overflow: hidden;
+}
+
+.hidden {
+  display: none;
 }
