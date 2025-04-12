@@ -11,7 +11,8 @@ const Toolbar: React.FC<{ controller: MainViewController }> = ({
 }) => {
   const renderCounter  = useRef(0);
   renderCounter.current = renderCounter.current + 1;
-  const [projectName, setProjectName] = useState(defaultProjectName); 
+  const [showRenderCounter, setShowRenderCounter] = useState(false);
+  const [projectName, setProjectName] = useState(defaultProjectName);
 
   const changeName = () => {
     let newName: string | null = null;
@@ -25,6 +26,10 @@ const Toolbar: React.FC<{ controller: MainViewController }> = ({
     setProjectName(newName)
   })
 
+  getNotificationCenter().subscribe("showRendererCounters", (val: boolean) => {
+    setShowRenderCounter(val);
+  });
+
   return (
     <>
       <h2 className="project-name" title={projectName}>
@@ -34,7 +39,8 @@ const Toolbar: React.FC<{ controller: MainViewController }> = ({
       <button onClick={() => controller.removeLastShape()}>Undo</button>
       <button onClick={() => controller.reinsertPreviousShape()}>Redo</button>
       <button onClick={() => controller.clearAll()}>Clear all</button>
-      <div>{renderCounter.current} renders</div>
+      <button onClick={() => controller.toggleRenderCounters()}>Toogle counters</button>
+      <div className={showRenderCounter ? "" : "hidden" }>{renderCounter.current} renders</div>
       <div id="react-toolbar-root"><CountComponent></CountComponent></div>
     </>
   );

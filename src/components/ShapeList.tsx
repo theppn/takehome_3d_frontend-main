@@ -11,6 +11,7 @@ const ShapeList: React.FC<{controller: MainViewController}> = ({controller}) => 
   const [shapesList, setShapesList] = useState<{id: number, name: String, color: string}[]>([]);
   const renderCounter  = useRef(0);
   renderCounter.current = renderCounter.current + 1;
+  const [showRenderCounter, setShowRenderCounter] = useState(false);
 
   const blinkObject = (id: number) => {
     controller.blinkObjectbyId(id);
@@ -19,6 +20,10 @@ const ShapeList: React.FC<{controller: MainViewController}> = ({controller}) => 
   getNotificationCenter().subscribe("projectName", (newName: string) => {
     setProjectName(newName)
   })
+
+  getNotificationCenter().subscribe("showRendererCounters", (val: boolean) => {
+    setShowRenderCounter(val);
+  });
 
   getNotificationCenter().subscribe("shapeAdded", (shape: THREE.Mesh) => {
     const newShapesList = shapesList.slice(0);
@@ -46,8 +51,8 @@ const ShapeList: React.FC<{controller: MainViewController}> = ({controller}) => 
           ))}
         </ul>
       </div>
-      <div>
-        {renderCounter.current} renders 
+      <div className={showRenderCounter ? "" : "hidden" }>
+        {renderCounter.current} renders
       </div>
     </div>
   );

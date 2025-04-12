@@ -11,9 +11,11 @@ export interface MainViewController {
   clearAll(): void;
   blinkObjectbyId(id: number): void;
   setProjectName(name: string): void;
+  toggleRenderCounters(): void; 
 }
 
 export function createMainViewController(): MainViewController {
+  let showRendererCounters = false;
   const view = createMainView();
   const undoStack: THREE.Object3D[] = [];
   const geometries = {
@@ -86,5 +88,9 @@ export function createMainViewController(): MainViewController {
       // project name is not saved in state for this example
       getNotificationCenter().notify("projectName", name);
     },
+    toggleRenderCounters() {
+      showRendererCounters = !showRendererCounters;
+      getNotificationCenter().notify("showRendererCounters", showRendererCounters);      
+    }
   };
 }

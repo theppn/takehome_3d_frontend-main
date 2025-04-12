@@ -5,6 +5,11 @@ const CountComponent: React.FC = () => {
   const [count, setCount] = useState(0);
   const renderCounter  = useRef(0);
   renderCounter.current = renderCounter.current + 1;
+  const [showRenderCounter, setShowRenderCounter] = useState(false);
+
+  getNotificationCenter().subscribe("showRendererCounters", (val: boolean) => {
+    setShowRenderCounter(val);
+  });
 
   getNotificationCenter().subscribe("shapeAdded", () => {
     setCount(count + 1);
@@ -15,7 +20,7 @@ const CountComponent: React.FC = () => {
   getNotificationCenter().subscribe("sceneCleared", () => {
     setCount(0);
   });
-  return <h2>{count} objects / {renderCounter.current} renders</h2>;
+  return <h2>{count} objects <div className={showRenderCounter ? "" : "hidden" }>/{renderCounter.current} renders</div></h2>;
 };
 
 export default CountComponent;

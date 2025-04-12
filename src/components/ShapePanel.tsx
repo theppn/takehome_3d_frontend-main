@@ -1,14 +1,20 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import ShapeButton from "./ShapeButton";
 import "../../styles/shape_panel.css";
 import { type MainViewController } from "../3d/MainViewController";
+import { getNotificationCenter } from "../notification";
 
 const ShapePanel: React.FC<{ controller: MainViewController }> = ({
   controller,
 }) => {
   const renderCounter  = useRef(0);
   renderCounter.current = renderCounter.current + 1;
+  const [showRenderCounter, setShowRenderCounter] = useState(false);
+
+  getNotificationCenter().subscribe("showRendererCounters", (val: boolean) => {
+    setShowRenderCounter(val);
+  });
   return (
     <div>
       <ShapeButton
@@ -23,7 +29,7 @@ const ShapePanel: React.FC<{ controller: MainViewController }> = ({
         label="cylinder"
         onClick={() => controller.createShape("cylinder")}
       />
-      {renderCounter.current} renders
+      <div className={showRenderCounter ? "" : "hidden" }>{renderCounter.current} renders</div>
     </div>
   );
 };
