@@ -18,7 +18,7 @@ const Toolbar: React.FC<{ controller: MainViewController }> = ({
     while (!newName) {
       newName = prompt("Enter new name", projectName);
     }
-    getNotificationCenter().notify("projectName", newName);
+    controller.setProjectName(newName);
   }
 
   getNotificationCenter().subscribe("projectName", (newName: string) => {
